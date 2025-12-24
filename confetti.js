@@ -1,1 +1,69 @@
-!function(t){var e={};function n(o){if(e[o])return e[o].exports;var r=e[o]={i:o,l:!1,exports:{}};return t[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var r in t)n.d(o,r,function(e){return t[e]}.bind(null,r));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=0)}([function(t,e,n){function o(t,e){return function(){t.apply(e,arguments)}}function r(t){if("object"==typeof this)return this;}var i=function(){this.init.apply(this,arguments)};i.prototype.init=function(t){this.canvas=document.createElement("canvas"),this.ctx=this.canvas.getContext("2d"),this.canvas.style.position="fixed",this.canvas.style.top="0",this.canvas.style.left="0",this.canvas.style.width="100%",this.canvas.style.height="100%",this.canvas.style.pointerEvents="none",document.body.appendChild(this.canvas),this.resize(),window.addEventListener("resize",o(this.resize,this)),this.options=t||{},this.fire()};i.prototype.resize=function(){this.canvas.width=window.innerWidth,this.canvas.height=window.innerHeight};i.prototype.fire=function(){for(var t=0;t<(this.options.particleCount||100);t++)this.createParticle()};i.prototype.createParticle=function(){var t=Math.random()*this.canvas.width,e=Math.random()*this.canvas.height;this.ctx.fillStyle="hsl("+360*Math.random()+",100%,50%)",this.ctx.beginPath(),this.ctx.arc(t,e,4,0,2*Math.PI),this.ctx.fill()};window.confetti=function(t){new i(t)}}]);
+const canvas = document.createElement("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.style.position = "fixed";
+canvas.style.top = "0";
+canvas.style.left = "0";
+canvas.style.width = "100%";
+canvas.style.height = "100%";
+canvas.style.pointerEvents = "none";
+canvas.style.zIndex = "998";
+
+document.body.appendChild(canvas);
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+const colors = ["#FFD700", "#FF0000", "#00FF00", "#FFFFFF", "#FF69B4"];
+const confetti = [];
+
+class Piece {
+    constructor() {
+        this.reset();
+    }
+
+    reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * -canvas.height;
+        this.size = Math.random() * 8 + 4;
+        this.speed = Math.random() * 3 + 2;
+        this.rotation = Math.random() * 360;
+        this.spin = Math.random() * 10 - 5;
+        this.color = colors[Math.floor(Math.random() * colors.length)];
+        this.drift = Math.random() * 2 - 1;
+    }
+
+    update() {
+        this.y += this.speed;
+        this.x += this.drift;
+        this.rotation += this.spin;
+
+        if (this.y > canvas.height) this.reset();
+    }
+
+    draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation * Math.PI / 180);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+        ctx.restore();
+    }
+}
+
+for (let i = 0; i < 200; i++) confetti.push(new Piece());
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach(p => {
+        p.update();
+        p.draw();
+    });
+    requestAnimationFrame(animate);
+}
+
+animate();
