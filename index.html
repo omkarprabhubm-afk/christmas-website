@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +14,7 @@
 body {
     margin: 0;
     height: 100vh;
-    background: url("santa.png") no-repeat center center/cover;
+    background: url("santa.png") no-repeat center center / cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,8 +29,17 @@ body {
     text-align: center;
     color: gold;
     backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     border: 1px solid rgba(255, 215, 0, 0.35);
     max-width: 90vw;
+}
+
+h1 {
+    font-size: clamp(28px, 6vw, 42px);
+}
+
+p {
+    font-size: clamp(16px, 4vw, 20px);
 }
 
 input {
@@ -54,14 +65,30 @@ button {
 button:hover {
     background: darkred;
 }
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 28px;
-    }
-    p {
-        font-size: 16px;
-    }
-}
 </style>
 </head>
+
+<body>
+
+<div class="card">
+    <h1>🎄 Merry Christmas 🎅</h1>
+    <p>Enter Your Name</p>
+    <input type="text" id="name" placeholder="Your Name">
+    <br>
+    <button onclick="goNext()">Celebrate</button>
+</div>
+
+<script src="snow.js"></script>
+<script>
+function goNext() {
+    const name = document.getElementById("name").value.trim();
+    if (!name) {
+        alert("Please enter your name");
+        return;
+    }
+    window.location.href = "greeting.html?name=" + encodeURIComponent(name);
+}
+</script>
+
+</body>
+</html>
