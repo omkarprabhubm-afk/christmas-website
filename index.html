@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Christmas</title>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        background: url("santa.png") no-repeat center center/cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Georgia", serif;
+    }
+
+    .card {
+        background: rgba(0, 0, 0, 0.65);
+        padding: 40px;
+        border-radius: 12px;
+        text-align: center;
+        color: white;
+    }
+
+    input {
+        padding: 12px;
+        font-size: 18px;
+        width: 250px;
+        border-radius: 6px;
+        border: none;
+        margin-top: 15px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 12px 30px;
+        font-size: 18px;
+        background: crimson;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: darkred;
+    }
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🎄 Merry Christmas 🎅</h1>
+    <p>Enter your name</p>
+    <input type="text" id="name" placeholder="Your Name">
+    <br>
+    <button onclick="goNext()">Celebrate</button>
+</div>
+
+<script>
+function goNext() {
+    const name = document.getElementById("name").value.trim();
+    if (name === "") {
+        alert("Please enter your name!");
+        return;
+    }
+    window.location.href = "greeting.html?name=" + encodeURIComponent(name);
+}
+</script>
+
+</body>
+</html>
