@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +14,7 @@
 body {
     margin: 0;
     height: 100vh;
-    background: url("santa.png") no-repeat center center/cover;
+    background: url("santa.png") no-repeat center center / cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,5 +36,22 @@ body {
 }
 </style>
 </head>
+
+<body>
+
+<div class="message" id="msg"></div>
+
+<script src="confetti.js"></script>
+<script src="snow.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+
+document.getElementById("msg").innerHTML =
+    `🎄 Merry Christmas<br>${name}! 🎅`;
+</script>
+
+</body>
+</html>
 
 
