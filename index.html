@@ -18,22 +18,26 @@ body {
     justify-content: center;
     align-items: center;
     font-family: "Gothic", serif;
+    overflow: hidden;
 }
 
 .card {
-    background: rgba(0, 0, 0, 0.65);
-    padding: 40px;
-    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 40px 60px;
+    border-radius: 18px;
     text-align: center;
     color: gold;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 215, 0, 0.35);
 }
 
 input {
     padding: 12px;
     font-size: 18px;
-    width: 250px;
+    width: 260px;
     border-radius: 6px;
     border: none;
+    margin-top: 10px;
 }
 
 button {
@@ -57,7 +61,7 @@ button:hover {
 <div class="card">
     <h1>🎄 Merry Christmas 🎅</h1>
     <p>Enter Your Name</p>
-    <input type="text" id="name">
+    <input type="text" id="name" placeholder="Your Name">
     <br>
     <button onclick="goNext()">Celebrate</button>
 </div>
@@ -67,7 +71,7 @@ button:hover {
 function goNext() {
     const name = document.getElementById("name").value.trim();
     if (!name) {
-        alert("Enter your name");
+        alert("Please enter your name");
         return;
     }
     window.location.href = "greeting.html?name=" + encodeURIComponent(name);
