@@ -3,26 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Merry Christmas</title>
-<style>
-    body {
-        margin: 0;
-        height: 100vh;
-        background: url("santa.png") no-repeat center center/cover;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "Georgia", serif;
-        overflow: hidden;
-    }
 
-    .message {
-        background: rgba(0, 0, 0, 0.65);
-        padding: 50px;
-        border-radius: 12px;
-        text-align: center;
-        color: gold;
-        font-size: 42px;
-    }
+<style>
+@font-face {
+    font-family: "Gothic";
+    src: url("fonts/UnifrakturCook-Bold.ttf");
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: url("santa.png") no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Gothic", serif;
+    overflow: hidden;
+}
+
+.message {
+    background: rgba(0, 0, 0, 0.65);
+    padding: 50px;
+    border-radius: 12px;
+    color: gold;
+    font-size: 48px;
+    text-align: center;
+}
 </style>
 </head>
 <body>
@@ -30,19 +36,20 @@
 <div class="message" id="msg"></div>
 
 <script src="confetti.js"></script>
+<script src="snow.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
 const name = params.get("name");
 
 document.getElementById("msg").innerHTML =
-    `🎄 Merry Christmas <br>${name}! 🎅`;
+    `🎄 Merry Christmas<br>${name}! 🎅`;
 
 confetti({
     particleCount: 200,
-    spread: 100,
-    origin: { y: 0.6 }
+    spread: 120
 });
 </script>
 
 </body>
 </html>
+
